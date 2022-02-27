@@ -5,10 +5,10 @@ type MappedOperations = {
     [x in Operator | 'default']: () => number | string;
 };
 
-export default class Node {    
+export default class ExpressionTree {    
     private readonly value: Operator | number;
-    private readonly left: Node | undefined;
-    private readonly right: Node | undefined;
+    private readonly left: ExpressionTree | undefined;
+    private readonly right: ExpressionTree | undefined;
     
     private readonly resultOperations: MappedOperations = {
         '+': () => this.left!.result() + this.right!.result(),
@@ -33,9 +33,9 @@ export default class Node {
     }
 
     constructor(value: number)
-    constructor(value: Operator, left: Node, right: Node)
+    constructor(value: Operator, left: ExpressionTree, right: ExpressionTree)
 
-    constructor(value: Operator | number, left?: Node, right?: Node) {
+    constructor(value: Operator | number, left?: ExpressionTree, right?: ExpressionTree) {
         this.value = value,
         this.left = left,
         this.right = right
