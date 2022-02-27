@@ -14,7 +14,13 @@ export default class Node {
         '+': () => this.left!.result() + this.right!.result(),
         '-': () => this.left!.result() - this.right!.result(),
         'x': () => this.left!.result() * this.right!.result(),
-        '÷': () => this.left!.result() / this.right!.result(),
+        '÷': () => {
+            if (this.right!.result() !== 0) {
+                return this.left!.result() / this.right!.result()
+            } else {
+                return 0
+            }
+        },
         'default': () => this.value
     }
 

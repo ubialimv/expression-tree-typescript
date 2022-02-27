@@ -32,5 +32,13 @@ describe('node', () => {
             expect(node.toString()).toEqual('1')
         })
     })
+
+    describe('expression with division by 0', () => {
+        const node = new Node('÷', new Node(1), new Node(0))
+
+        it('given an expression with division by 0 should return 0' , () => {
+            expect(node.result()).toEqual(0)
+        })
+    })
     
 })
