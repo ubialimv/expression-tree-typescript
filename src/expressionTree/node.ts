@@ -11,18 +11,18 @@ export default class Node {
     private readonly right: Node | undefined;
     
     private readonly resultOperations: MappedOperations = {
-        '+': () => this.left.result() + this.right.result(),
-        '-': () => this.left.result() - this.right.result(),
-        'x': () => this.left.result() * this.right.result(),
-        '÷': () => this.left.result() / this.right.result(),
+        '+': () => this.left!.result() + this.right!.result(),
+        '-': () => this.left!.result() - this.right!.result(),
+        'x': () => this.left!.result() * this.right!.result(),
+        '÷': () => this.left!.result() / this.right!.result(),
         'default': () => this.value
     }
 
     private readonly toStringOperations: MappedOperations = {
-        '+': () => `(${this.left.toString()} + ${this.right.toString()})`,
-        '-': () => `(${this.left.toString()} - ${this.right.toString()})`,
-        'x': () => `(${this.left.toString()} x ${this.right.toString()})`,
-        '÷': () => `(${this.left.toString()} ÷ ${this.right.toString()})`,
+        '+': () => `(${this.left!.toString()} + ${this.right!.toString()})`,
+        '-': () => `(${this.left!.toString()} - ${this.right!.toString()})`,
+        'x': () => `(${this.left!.toString()} x ${this.right!.toString()})`,
+        '÷': () => `(${this.left!.toString()} ÷ ${this.right!.toString()})`,
         'default': () => this.value.toString()
     }
 
@@ -36,15 +36,19 @@ export default class Node {
     }
 
     result (): number {
-        return this.evaluate(this.resultOperations)
+        return Number(this.evaluate(this.resultOperations));
     };
 
     toString (): string {
-        return this.evaluate(this.toStringOperations)
+        return this.evaluate(this.toStringOperations).toString();
     }
 
     private evaluate (obj: MappedOperations) {
-        const method = obj[this.value] ?? obj.default
-        return method()
+        if (typeof this.value === 'string') {
+            const method = obj[this.value] ?? obj.default;
+            return method();
+        } else {
+            return obj.default();
+        }
     }
 }

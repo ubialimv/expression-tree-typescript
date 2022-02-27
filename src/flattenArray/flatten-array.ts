@@ -1,5 +1,5 @@
 function flattenArray (arr: Array<unknown>) {
-    const flattenedArray = [];
+    const flattenedArray: Array<unknown> = [];
     
     arr.forEach(x => {
         if (Array.isArray(x)) {
