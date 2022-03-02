@@ -1,4 +1,3 @@
-# guru code challenge
 The implementations are located in the src folder.
 
 ## flattenArray
